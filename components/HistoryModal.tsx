@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { SavedInvoice } from '../types';
 
@@ -26,7 +25,8 @@ const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, history, l
   const availableMonths = useMemo(() => {
     if (!history) return [];
     const months = new Set(history.map(inv => inv.invoiceDate.substring(0, 7))); // 'YYYY-MM'
-    return Array.from(months).sort((a, b) => b.localeCompare(a)); // Sort descending
+    // FIX: Explicitly type sort parameters to resolve TypeScript inference issue.
+    return Array.from(months).sort((a: string, b: string) => b.localeCompare(a)); // Sort descending
   }, [history]);
 
   const formatMonthForDisplay = (monthStr: string) => { // 'YYYY-MM'
@@ -76,16 +76,16 @@ const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, history, l
           ) : (
             <ul className="space-y-3">
               {filteredHistory.map((invoice) => (
-                <li key={invoice.id} className="p-3 bg-white rounded-md border hover:shadow-md transition-shadow flex flex-wrap justify-between items-center gap-2">
-                  <div className="flex-1 min-w-[200px]">
+                <li key={invoice.id} className="p-3 bg-white rounded-md border hover:shadow-md transition-shadow flex flex-wrap justify-between items-center gap-y-2 gap-x-4">
+                  <div className="flex-grow min-w-[200px]">
                     <p className="font-semibold text-gray-800">{invoice.customerDetails.name || 'Tanpa Nama'}</p>
                     <p className="text-sm text-gray-600">{invoice.invoiceNumber}</p>
                   </div>
-                  <div className="flex-shrink-0 text-right">
+                  <div className="flex-shrink-0 text-left sm:text-right">
                     <p className="font-medium text-gray-700">{formatCurrency(invoice.totals.total)}</p>
                     <p className="text-xs text-gray-500">{invoice.invoiceDate}</p>
                   </div>
-                  <div className="flex-shrink-0 ml-4">
+                  <div className="w-full sm:w-auto flex justify-end">
                     <button 
                       onClick={() => handleLoadInvoice(invoice)}
                       className="bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm font-medium py-1 px-3 rounded-md transition-colors"

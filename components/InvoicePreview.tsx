@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import useInvoice from '../hooks/useInvoice';
-import { ResetIcon, DownloadIcon } from './icons';
+import { ResetIcon, DownloadIcon, PrintIcon } from './icons';
 
 type InvoicePreviewProps = ReturnType<typeof useInvoice>;
 
@@ -93,6 +93,10 @@ const InvoicePreview: React.FC<InvoicePreviewProps> = ({
     } finally {
       setIsPdfLoading(false);
     }
+  };
+
+  const handlePrint = () => {
+    window.print();
   };
 
   return (
@@ -187,6 +191,10 @@ const InvoicePreview: React.FC<InvoicePreviewProps> = ({
         
         {/* Action Buttons */}
         <div className="mt-6 flex flex-wrap justify-end gap-3 print:hidden">
+          <button onClick={handlePrint} disabled={isJpgLoading || isPdfLoading} className="flex items-center bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors disabled:bg-indigo-300 disabled:cursor-not-allowed">
+            <PrintIcon />
+            <span className="ml-2">Cetak Nota</span>
+          </button>
           <button onClick={handleDownloadJpg} disabled={isJpgLoading || isPdfLoading} className="flex items-center bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors disabled:bg-blue-300 disabled:cursor-not-allowed">
             <DownloadIcon />
             <span className="ml-2">{isJpgLoading ? 'Proses...' : 'Unduh JPG'}</span>

@@ -1,6 +1,6 @@
-
 import React, { useMemo } from 'react';
 import { SavedInvoice } from '../types';
+import { ExportIcon } from './icons';
 
 type SalesModalProps = {
   isOpen: boolean;
@@ -24,7 +24,8 @@ const SalesModal: React.FC<SalesModalProps> = ({ isOpen, onClose, salesData, his
   const availableMonths = useMemo(() => {
     if (!history) return [];
     const months = new Set(history.map(inv => inv.invoiceDate.substring(0, 7))); // 'YYYY-MM'
-    return Array.from(months).sort((a, b) => b.localeCompare(a)); // Sort descending
+    // FIX: Explicitly type sort parameters to resolve TypeScript inference issue.
+    return Array.from(months).sort((a: string, b: string) => b.localeCompare(a)); // Sort descending
   }, [history]);
 
   const formatMonthForDisplay = (monthStr: string) => { // 'YYYY-MM'
@@ -33,6 +34,62 @@ const SalesModal: React.FC<SalesModalProps> = ({ isOpen, onClose, salesData, his
     return date.toLocaleString('id-ID', { month: 'long', year: 'numeric' });
   };
 
+  const handleExportCsv = () => {
+    const filteredHistory = selectedMonth === 'all'
+        ? history
+        : history.filter(inv => inv.invoiceDate.startsWith(selectedMonth));
+
+    if (filteredHistory.length === 0) {
+        alert('Tidak ada data untuk diekspor.');
+        return;
+    }
+
+    const headers = [
+        'Nomor Nota', 'Tanggal', 'Nama Pelanggan', 'Alamat Pelanggan',
+        'Nama Barang', 'Jumlah', 'Satuan', 'Harga Satuan', 'Total Harga Barang'
+    ];
+    let csvContent = headers.join(',') + '\n';
+
+    const escapeCsvCell = (cell: string | number | undefined) => {
+        const strCell = String(cell ?? '');
+        if (strCell.includes(',')) {
+            return `"${strCell.replace(/"/g, '""')}"`;
+        }
+        return strCell;
+    };
+
+    filteredHistory.forEach(invoice => {
+        invoice.items.forEach(item => {
+            const row = [
+                invoice.invoiceNumber,
+                invoice.invoiceDate,
+                invoice.customerDetails.name,
+                invoice.customerDetails.address,
+                item.name,
+                item.quantity,
+                item.unit,
+                item.price,
+                item.quantity * item.price
+            ].map(escapeCsvCell).join(',');
+            csvContent += row + '\n';
+        });
+    });
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    
+    const monthName = selectedMonth === 'all' 
+        ? 'Semua_Bulan' 
+        : formatMonthForDisplay(selectedMonth).replace(/\s/g, '_');
+    link.setAttribute('download', `Rekap_Penjualan_${monthName}.csv`);
+    
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center p-4" onClick={onClose} role="dialog" aria-modal="true">
@@ -70,6 +127,19 @@ const SalesModal: React.FC<SalesModalProps> = ({ isOpen, onClose, salesData, his
             <p className="text-3xl font-bold text-green-600">{formatCurrency(salesData.totalSales)}</p>
           </div>
         </main>
+        
+        <footer className="p-4 bg-gray-50 rounded-b-lg border-t">
+          <div className="flex justify-end">
+            <button
+              onClick={handleExportCsv}
+              className="flex items-center bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors"
+              aria-label="Ekspor data ke CSV"
+            >
+              <ExportIcon />
+              <span className="ml-2">Ekspor CSV</span>
+            </button>
+          </div>
+        </footer>
       </div>
     </div>
   );

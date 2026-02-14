@@ -36,3 +36,11 @@ export const SalesIcon: React.FC = () => (
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
   </svg>
 );
+
+export const ExportIcon: React.FC = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+    <path d="M10 3a1 1 0 00-1 1v1a1 1 0 102 0V4a1 1 0 00-1-1z" />
+    <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h1a1 1 0 110 2h-1v3a1 1 0 11-2 0v-3H8a1 1 0 110-2h1V6a1 1 0 011-1zM6 5a1 1 0 00-1 1v3H4a1 1 0 100 2h1v3a1 1 0 102 0v-3h1a1 1 0 100-2H7V6a1 1 0 00-1-1z" clipRule="evenodd" />
+    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 4a1 1 0 000 2h6a1 1 0 100-2H7z" />
+  </svg>
+);
