@@ -33,3 +33,8 @@ export interface SavedInvoice {
     total: number;
   };
 }
+
+export interface MonthlySales {
+  month: string;
+  sales: number;
+}

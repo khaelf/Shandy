@@ -62,8 +62,7 @@ function App() {
         onClose={() => setIsSalesOpen(false)}
         salesData={invoiceHook.salesData}
         history={invoiceHook.history}
-        selectedMonth={invoiceHook.selectedMonth}
-        setSelectedMonth={invoiceHook.setSelectedMonth}
+        chartData={invoiceHook.monthlyChartData}
       />
     </>
   );

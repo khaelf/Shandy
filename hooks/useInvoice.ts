@@ -1,6 +1,6 @@
 
 import { useState, useMemo, ChangeEvent, useEffect } from 'react';
-import { InvoiceItem, CustomerDetails, StoreDetails, SavedInvoice } from '../types';
+import { InvoiceItem, CustomerDetails, StoreDetails, SavedInvoice, MonthlySales } from '../types';
 
 const TAX_RATE = 0; // PPN dihilangkan
 
@@ -38,8 +38,6 @@ const useInvoice = () => {
   const [customerDetails, setCustomerDetails] = useState<CustomerDetails>(initialCustomerDetails);
   const [items, setItems] = useState<InvoiceItem[]>([]);
   const [newItem, setNewItem] = useState<Omit<InvoiceItem, 'id'>>(initialNewItem);
-  const [selectedMonth, setSelectedMonth] = useState<string>('all'); // 'YYYY-MM' or 'all'
-
 
   const [history, setHistory] = useState<SavedInvoice[]>(() => {
     try {
@@ -151,14 +149,41 @@ const useInvoice = () => {
   };
 
   const salesData = useMemo(() => {
-    const filteredHistory = selectedMonth === 'all'
-        ? history
-        : history.filter(inv => inv.invoiceDate.startsWith(selectedMonth));
-
-    const invoiceCount = filteredHistory.length;
-    const totalSales = filteredHistory.reduce((acc, inv) => acc + inv.totals.total, 0);
+    const invoiceCount = history.length;
+    const totalSales = history.reduce((acc, inv) => acc + inv.totals.total, 0);
     return { invoiceCount, totalSales };
-  }, [history, selectedMonth]);
+  }, [history]);
+
+  const monthlyChartData = useMemo((): MonthlySales[] => {
+    const salesByMonth: { [key: string]: number } = {};
+    const today = new Date();
+    
+    // Initialize the last 6 months
+    for (let i = 5; i >= 0; i--) {
+        const d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+        const monthKey = d.toISOString().slice(0, 7); // YYYY-MM
+        salesByMonth[monthKey] = 0;
+    }
+
+    // Aggregate sales from history
+    history.forEach(invoice => {
+        const monthKey = invoice.invoiceDate.slice(0, 7);
+        if (monthKey in salesByMonth) {
+            salesByMonth[monthKey] += invoice.totals.total;
+        }
+    });
+
+    // Format for chart
+    return Object.entries(salesByMonth).map(([monthKey, sales]) => {
+        const [year, month] = monthKey.split('-');
+        const date = new Date(parseInt(year), parseInt(month) - 1);
+        const monthName = date.toLocaleString('id-ID', { month: 'short' });
+        return {
+            month: `${monthName} '${year.slice(2)}`,
+            sales,
+        };
+    });
+  }, [history]);
 
 
   return {
@@ -180,8 +205,7 @@ const useInvoice = () => {
     history,
     salesData,
     loadInvoice,
-    selectedMonth,
-    setSelectedMonth,
+    monthlyChartData,
   };
 };
 
