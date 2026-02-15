@@ -23,7 +23,7 @@ function App() {
             <div className="flex items-center gap-4 sm:gap-6">
               <button
                 onClick={() => setIsSalesOpen(true)}
-                className="flex items-center bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors"
+                className="flex items-center bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
                 aria-label="Buka Rekap Belanja"
               >
                 <SalesIcon />

@@ -49,29 +49,29 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md space-y-8">
+    <div className="bg-blue-50 p-6 rounded-lg shadow-md space-y-8">
       {/* Invoice Details */}
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold text-gray-700 border-b pb-2">Detail Nota</h2>
+        <h2 className="text-xl font-semibold text-blue-800 border-b border-blue-200 pb-2">Detail Nota</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="invoiceNumber" className="block text-sm font-medium text-gray-600">Nomor Nota</label>
+            <label htmlFor="invoiceNumber" className="block text-sm font-medium text-blue-900">Nomor Nota</label>
             <input
               type="text"
               id="invoiceNumber"
               value={invoiceNumber}
               onChange={(e) => setInvoiceNumber(e.target.value)}
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           </div>
           <div>
-            <label htmlFor="invoiceDate" className="block text-sm font-medium text-gray-600">Tanggal Nota</label>
+            <label htmlFor="invoiceDate" className="block text-sm font-medium text-blue-900">Tanggal Nota</label>
             <input
               type="date"
               id="invoiceDate"
               value={invoiceDate}
               onChange={(e) => setInvoiceDate(e.target.value)}
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           </div>
         </div>
@@ -79,28 +79,28 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({
       
       {/* Customer Details */}
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold text-gray-700 border-b pb-2">Detail Pelanggan</h2>
+        <h2 className="text-xl font-semibold text-blue-800 border-b border-blue-200 pb-2">Detail Pelanggan</h2>
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-600">Nama</label>
+          <label htmlFor="name" className="block text-sm font-medium text-blue-900">Nama</label>
           <input
             type="text"
             name="name"
             id="name"
             value={customerDetails.name}
             onChange={handleCustomerChange}
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             placeholder="Nama Pelanggan"
           />
         </div>
         <div>
-          <label htmlFor="address" className="block text-sm font-medium text-gray-600">Alamat</label>
+          <label htmlFor="address" className="block text-sm font-medium text-blue-900">Alamat</label>
           <textarea
             name="address"
             id="address"
             rows={3}
             value={customerDetails.address}
             onChange={handleCustomerChange}
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             placeholder="Alamat Lengkap Pelanggan"
           />
         </div>
@@ -108,7 +108,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({
 
       {/* Items Section */}
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold text-gray-700 border-b pb-2">Barang</h2>
+        <h2 className="text-xl font-semibold text-blue-800 border-b border-blue-200 pb-2">Barang</h2>
         <div className="space-y-2">
           {items.map((item) => (
             <div key={item.id} className="grid grid-cols-12 gap-2 items-center">
@@ -116,7 +116,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({
                 type="text"
                 value={item.name}
                 onChange={(e) => updateItem(item.id, { name: e.target.value })}
-                className="col-span-4 block w-full border-gray-300 rounded-md shadow-sm sm:text-sm"
+                className="col-span-4 block w-full border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Nama Barang"
               />
               <input
@@ -124,21 +124,21 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({
                 value={item.quantity}
                 min="1"
                 onChange={(e) => updateItem(item.id, { quantity: parseInt(e.target.value) || 1 })}
-                className="col-span-2 block w-full border-gray-300 rounded-md shadow-sm sm:text-sm"
+                className="col-span-2 block w-full border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Jml"
               />
               <input
                 type="text"
                 value={item.unit}
                 onChange={(e) => updateItem(item.id, { unit: e.target.value })}
-                className="col-span-2 block w-full border-gray-300 rounded-md shadow-sm sm:text-sm"
+                className="col-span-2 block w-full border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Satuan"
               />
               <input
                 type="text"
                 value={formatPrice(item.price)}
                 onChange={(e) => updateItem(item.id, { price: parsePrice(e.target.value) })}
-                className="col-span-2 block w-full border-gray-300 rounded-md shadow-sm sm:text-sm"
+                className="col-span-2 block w-full border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Harga"
               />
               <div className="col-span-2 flex items-center justify-end">
@@ -157,8 +157,8 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({
           ))}
         </div>
 
-        <div className="pt-4 border-t">
-            <div className="grid grid-cols-12 gap-2 text-sm font-medium text-gray-600 mb-1">
+        <div className="pt-4 border-t border-blue-200">
+            <div className="grid grid-cols-12 gap-2 text-sm font-medium text-blue-900 mb-1">
                 <div className="col-span-12 sm:col-span-4">Nama Barang</div>
                 <div className="col-span-4 sm:col-span-2">Jumlah</div>
                 <div className="col-span-4 sm:col-span-2">Satuan</div>
@@ -172,7 +172,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({
                   value={newItem.name}
                   onChange={handleNewItemChange}
                   onKeyDown={handleKeyDown}
-                  className="col-span-12 sm:col-span-4 block w-full border-gray-300 rounded-md shadow-sm sm:text-sm"
+                  className="col-span-12 sm:col-span-4 block w-full border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                   placeholder="cth. Laptop, Printer"
                   required
                 />
@@ -183,7 +183,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({
                   min="1"
                   onChange={handleNewItemChange}
                   onKeyDown={handleKeyDown}
-                  className="col-span-4 sm:col-span-2 block w-full border-gray-300 rounded-md shadow-sm sm:text-sm"
+                  className="col-span-4 sm:col-span-2 block w-full border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                   placeholder="1"
                   required
                 />
@@ -193,7 +193,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({
                   value={newItem.unit}
                   onChange={handleNewItemChange}
                   onKeyDown={handleKeyDown}
-                  className="col-span-4 sm:col-span-2 block w-full border-gray-300 rounded-md shadow-sm sm:text-sm"
+                  className="col-span-4 sm:col-span-2 block w-full border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Pcs, Unit"
                   required
                 />
@@ -203,12 +203,12 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({
                   value={newItem.price ? formatPrice(newItem.price) : ''}
                   onChange={handleNewItemChange}
                   onKeyDown={handleKeyDown}
-                  className="col-span-4 sm:col-span-2 block w-full border-gray-300 rounded-md shadow-sm sm:text-sm"
+                  className="col-span-4 sm:col-span-2 block w-full border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                   placeholder="1.000.000"
                   required
                 />
               <div className="col-span-12 sm:col-span-2">
-                <button type="submit" className="w-full bg-indigo-600 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <button type="submit" className="w-full bg-blue-600 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                   Tambah
                 </button>
               </div>

@@ -131,7 +131,7 @@ const InvoicePreview: React.FC<InvoicePreviewProps> = ({
           <div className="mt-8">
             <table className="w-full text-left table-fixed">
               <thead>
-                <tr className="bg-gray-100 text-sm font-semibold text-gray-600">
+                <tr className="bg-green-100 text-sm font-semibold text-green-800">
                   <th className="p-2 rounded-l-lg" style={{ width: '30%' }}>Barang</th>
                   <th className="p-2 text-center" style={{ width: '17.5%' }}>Jumlah</th>
                   <th className="p-2 text-center" style={{ width: '17.5%' }}>Satuan</th>
@@ -191,7 +191,7 @@ const InvoicePreview: React.FC<InvoicePreviewProps> = ({
         
         {/* Action Buttons */}
         <div className="mt-6 flex flex-wrap justify-end gap-3 print:hidden">
-          <button onClick={handlePrint} disabled={isJpgLoading || isPdfLoading} className="flex items-center bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors disabled:bg-indigo-300 disabled:cursor-not-allowed">
+          <button onClick={handlePrint} disabled={isJpgLoading || isPdfLoading} className="flex items-center bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors disabled:bg-blue-300 disabled:cursor-not-allowed">
             <PrintIcon />
             <span className="ml-2">Cetak Nota</span>
           </button>
@@ -199,7 +199,7 @@ const InvoicePreview: React.FC<InvoicePreviewProps> = ({
             <DownloadIcon />
             <span className="ml-2">{isJpgLoading ? 'Proses...' : 'Unduh JPG'}</span>
           </button>
-          <button onClick={handleDownloadPdf} disabled={isPdfLoading || isJpgLoading} className="flex items-center bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors disabled:bg-green-300 disabled:cursor-not-allowed">
+          <button onClick={handleDownloadPdf} disabled={isPdfLoading || isJpgLoading} className="flex items-center bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors disabled:bg-blue-300 disabled:cursor-not-allowed">
             <DownloadIcon />
             <span className="ml-2">{isPdfLoading ? 'Proses...' : 'Unduh PDF'}</span>
           </button>
