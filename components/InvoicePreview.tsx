@@ -106,7 +106,8 @@ const InvoicePreview: React.FC<InvoicePreviewProps> = ({
           <div className="flex justify-between items-start pb-4 border-b">
             <div>
               <h1 className="text-2xl font-bold text-gray-800">{storeDetails.name}</h1>
-              <p className="text-sm text-gray-500 whitespace-pre-line">{storeDetails.address}</p>
+              <p className="text-xs text-gray-500">Menjual berbagai alat elektronik dan perlengkapan kantor</p>
+              <p className="text-sm text-gray-500 whitespace-pre-line mt-2">{storeDetails.address}</p>
               <p className="text-sm text-gray-500">{storeDetails.phone}</p>
             </div>
             <h2 className="text-3xl font-bold text-gray-400 uppercase tracking-wider">Nota</h2>
@@ -178,7 +179,7 @@ const InvoicePreview: React.FC<InvoicePreviewProps> = ({
               <div className="text-center w-48">
                   <p className="text-sm text-gray-600">Hormat kami,</p>
                   <div className="h-16"></div> {/* Spacer for signature */}
-                  <p className="font-bold text-gray-800 pt-1 border-t border-gray-400">SHANDI ELECTRO</p>
+                  <p className="font-bold text-gray-800 pt-1 border-t border-gray-400">Sandi</p>
               </div>
           </div>
 
