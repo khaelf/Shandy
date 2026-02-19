@@ -6,8 +6,10 @@ import { ResetIcon, DownloadIcon, PrintIcon } from './icons';
 type InvoicePreviewProps = ReturnType<typeof useInvoice>;
 
 // Inform TypeScript that these libraries are globally available from the script tags in index.html
-declare const html2canvas: any;
-declare const jspdf: any;
+import { jsPDF } from 'jspdf';
+
+declare const html2canvas: (element: HTMLElement, options?: Partial<{ scale: number; useCORS: boolean; logging: boolean; }>) => Promise<HTMLCanvasElement>;
+declare const jspdf: { jsPDF: typeof jsPDF };
 
 const InvoicePreview: React.FC<InvoicePreviewProps> = ({
   storeDetails,
