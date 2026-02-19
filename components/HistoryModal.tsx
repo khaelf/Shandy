@@ -6,9 +6,10 @@ type HistoryModalProps = {
   onClose: () => void;
   history: SavedInvoice[];
   loadInvoice: (invoice: SavedInvoice) => void;
+  deleteInvoice: (id: string) => void;
 };
 
-const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, history, loadInvoice }) => {
+const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, history, loadInvoice, deleteInvoice }) => {
   if (!isOpen) return null;
 
   const [selectedMonth, setSelectedMonth] = useState('all');
@@ -91,6 +92,12 @@ const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, history, l
                       className="bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm font-medium py-1 px-3 rounded-md transition-colors"
                     >
                       Muat
+                    </button>
+                    <button 
+                      onClick={() => deleteInvoice(invoice.id)}
+                      className="bg-red-500 hover:bg-red-600 text-white text-sm font-medium py-1 px-3 rounded-md transition-colors ml-2"
+                    >
+                      Hapus
                     </button>
                   </div>
                 </li>

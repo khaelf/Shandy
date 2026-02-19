@@ -56,6 +56,7 @@ function App() {
         onClose={() => setIsHistoryOpen(false)}
         history={invoiceHook.history}
         loadInvoice={invoiceHook.loadInvoice}
+        deleteInvoice={invoiceHook.deleteInvoice}
       />
       <SalesModal
         isOpen={isSalesOpen}

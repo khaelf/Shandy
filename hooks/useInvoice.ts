@@ -148,6 +148,11 @@ const useInvoice = () => {
     setInvoiceDate(savedInvoice.invoiceDate);
   };
 
+  const deleteInvoice = (id: string) => {
+    const newHistory = history.filter(invoice => invoice.id !== id);
+    setHistory(newHistory);
+  };
+
   const salesData = useMemo(() => {
     const invoiceCount = history.length;
     const totalSales = history.reduce((acc, inv) => acc + inv.totals.total, 0);
@@ -206,6 +211,7 @@ const useInvoice = () => {
     salesData,
     loadInvoice,
     monthlyChartData,
+    deleteInvoice,
   };
 };
 

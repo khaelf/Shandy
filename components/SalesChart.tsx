@@ -101,7 +101,7 @@ const SalesChart: React.FC<SalesChartProps> = ({ data }) => {
                   y={y}
                   width={barWidth}
                   height={barHeight}
-                  fill="#4f46e5"
+                  fill="#3b82f6"
                   className="transition-opacity duration-200"
                   opacity={hoveredBar && hoveredBar.month !== d.month ? 0.5 : 1}
                   onMouseEnter={() => setHoveredBar({ ...d, x: x + barWidth / 2, y: y })}
